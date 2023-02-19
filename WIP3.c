@@ -212,6 +212,8 @@ int main(int argc, char *argv[])
             num_of_bytes_to_write_in_buffer = chunk_data_len;
         }
 
+        
+
         printf("\nnum_of_bytes_to_write_in_buffer %d",num_of_bytes_to_write_in_buffer);
 
         rrc_download_application_idg_command[V2_APK_FLAG_IDX] = '\0';
@@ -229,6 +231,11 @@ int main(int argc, char *argv[])
         num_of_bytes_written += num_of_bytes_to_write_in_buffer;
 
         buffer_len = V2_APK_DATA_IDX + num_of_bytes_to_write_in_buffer;
+
+        data_len = buffer_len - V2_APK_NAME_IDX;
+        printf("\ndata_len %d",data_len);
+        rrc_download_application_idg_command[v2_DL_LSB_OFFSET] = (char)(data_len & 0xff);
+        rrc_download_application_idg_command[v2_DL_MSB_OFFSET] = (char)(data_len >> 8 & 0xff);
 
         printf("\nbuffer_len %d",buffer_len);
 
